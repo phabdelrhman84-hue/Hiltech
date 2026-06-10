@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import { useCart } from "@/context/CartContext";
-import { Mail, Phone, Globe, Send, Tag, ShieldCheck } from "lucide-react";
+import { Mail, Phone, Globe, Send, Tag, ShieldCheck, Upload, FileText, X } from "lucide-react";
 
 export default function Contact() {
   const { cartItems, clearCart } = useCart();
@@ -13,6 +13,7 @@ export default function Contact() {
     email: "",
     message: "",
   });
+  const [file, setFile] = useState<File | null>(null);
   const [submitted, setSubmitted] = useState(false);
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -25,11 +26,13 @@ export default function Contact() {
     console.log("Submitting B2B RFP Request:", {
       client: formData,
       requestedProducts: cartItems,
+      attachedFile: file ? { name: file.name, size: file.size, type: file.type } : null,
     });
 
     setSubmitted(true);
     setTimeout(() => {
       clearCart();
+      setFile(null);
       setFormData({
         name: "",
         company: "",
@@ -46,6 +49,16 @@ export default function Contact() {
   ) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files && e.target.files[0]) {
+      setFile(e.target.files[0]);
+    }
+  };
+
+  const handleRemoveFile = () => {
+    setFile(null);
   };
 
   return (
@@ -178,6 +191,47 @@ export default function Contact() {
                 />
               </div>
 
+              {/* File Attachment Field */}
+              <div>
+                <label className="block text-slate-400 text-xs font-bold uppercase mb-2">إرفاق مقايسة أو مخطط للمشروع (PDF, Excel, صور)</label>
+                {!file ? (
+                  <label
+                    htmlFor="file-upload"
+                    className="flex flex-col items-center justify-center border border-dashed border-slate-800 hover:border-amber-500/40 bg-slate-900/10 hover:bg-slate-900/30 rounded-xl p-5 cursor-pointer transition-all text-center group"
+                  >
+                    <Upload className="w-6 h-6 text-slate-500 mb-2 group-hover:text-amber-500 transition-colors" />
+                    <span className="text-xs text-slate-400 font-semibold group-hover:text-slate-350">اضغط هنا لرفع الملف (مخطط، مقايسة BOQ، أو صورة الموقع)</span>
+                    <span className="text-[10px] text-slate-500 mt-1">المحلقات المدعومة: PDF, Excel (.xls, .xlsx), JPG, PNG (بحد أقصى 10 ميجا)</span>
+                    <input
+                      type="file"
+                      id="file-upload"
+                      accept=".pdf,.xls,.xlsx,image/*"
+                      onChange={handleFileChange}
+                      className="hidden"
+                    />
+                  </label>
+                ) : (
+                  <div className="flex items-center justify-between p-3.5 bg-slate-900 border border-slate-800 rounded-xl">
+                    <div className="flex items-center gap-3">
+                      <div className="w-10 h-10 rounded-lg bg-amber-500/10 flex items-center justify-center text-amber-500">
+                        <FileText className="w-5 h-5" />
+                      </div>
+                      <div className="text-right">
+                        <div className="text-xs font-bold text-slate-200 max-w-[200px] truncate">{file.name}</div>
+                        <div className="text-[10px] text-slate-500">{(file.size / 1024 / 1024).toFixed(2)} MB</div>
+                      </div>
+                    </div>
+                    <button
+                      type="button"
+                      onClick={handleRemoveFile}
+                      className="p-1.5 text-slate-500 hover:text-red-400 rounded-lg hover:bg-red-500/10 transition-colors cursor-pointer"
+                    >
+                      <X className="w-4 h-4" />
+                    </button>
+                  </div>
+                )}
+              </div>
+
               {/* Attachments quote list */}
               {cartItems.length > 0 && (
                 <div className="bg-amber-500/5 border border-amber-500/10 rounded-2xl p-4">
@@ -196,14 +250,14 @@ export default function Contact() {
               )}
 
               <div>
-                <label className="block text-slate-400 text-xs font-bold uppercase mb-2" htmlFor="message">تفاصيل البنود والكميات / نطاق الأعمال المطلوب</label>
+                <label className="block text-slate-400 text-xs font-bold uppercase mb-2" htmlFor="message">ملاحظات أو إضافات فنية للمشروع</label>
                 <textarea
                   id="message"
                   name="message"
                   rows={4}
                   value={formData.message}
                   onChange={handleInputChange}
-                  placeholder="اكتب هنا تفاصيل إضافية عن كميات الكابلات، الارتفاعات المطلوبة للراك، نوع الفايبر، أو قم بلصق جداول المقايسة للتقييم الفني المباشر..."
+                  placeholder="اكتب هنا أي ملاحظات إضافية، شروط خاصة بالتوريد، مواعيد التنفيذ المطلوبة، أو أي إضافة فنية تفضلها..."
                   className="w-full bg-slate-900 border border-slate-800 focus:border-amber-500 focus:outline-none rounded-xl px-4 py-3 text-slate-100 transition-colors text-sm"
                 ></textarea>
               </div>
