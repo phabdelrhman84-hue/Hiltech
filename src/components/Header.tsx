@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import { useCart } from "@/context/CartContext";
+import { Network, ClipboardList, Menu, X, Trash2, ArrowLeft, PhoneCall } from "lucide-react";
 
 export default function Header() {
   const { cartItems, setCartOpen, isCartOpen, removeFromCart, clearCart } = useCart();
@@ -9,62 +10,61 @@ export default function Header() {
 
   return (
     <>
-      <header className="fixed top-0 left-0 w-full z-50 backdrop-blur-xl bg-black/25 border-b border-white/10">
+      <header className="fixed top-0 left-0 w-full z-50 backdrop-blur-xl bg-slate-950/70 border-b border-slate-800/60">
         <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-xl bg-orange-500 flex items-center justify-center font-black text-white text-lg">
-              H
+          {/* Logo Section */}
+          <div className="flex items-center gap-3 select-none">
+            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-amber-500 to-amber-600 flex items-center justify-center text-white shadow-lg shadow-amber-500/10">
+              <Network className="w-5.5 h-5.5" strokeWidth={2.5} />
             </div>
             <div>
-              <h1 className="text-2xl font-black tracking-wide text-white">HILTECH</h1>
-              <p className="text-xs text-orange-300 -mt-1 font-bold">STRONG & CONNECTED</p>
+              <h1 className="text-xl font-extrabold tracking-wider text-slate-100 uppercase">HILTECH</h1>
+              <p className="text-[10px] text-amber-500 font-bold uppercase tracking-widest -mt-0.5">Strong & Connected</p>
             </div>
           </div>
 
           {/* Desktop Navigation */}
-          <nav className="hidden lg:flex gap-7 text-sm text-gray-300">
-            <a href="#services" className="hover:text-orange-300 transition-colors">الخدمات</a>
-            <a href="#products" className="hover:text-orange-300 transition-colors">المنتجات</a>
-            <a href="#product-page" className="hover:text-orange-300 transition-colors">صفحة المنتج</a>
-            <a href="#quality" className="hover:text-orange-300 transition-colors">الاختبارات</a>
-            <a href="#clients" className="hover:text-orange-300 transition-colors">العملاء</a>
-            <a href="#contact" className="hover:text-orange-300 transition-colors">تواصل معنا</a>
+          <nav className="hidden lg:flex gap-8 text-sm font-semibold text-slate-400">
+            <a href="#services" className="hover:text-amber-500 transition-colors">الخدمات والحلول</a>
+            <a href="#products" className="hover:text-amber-500 transition-colors">المنتجات</a>
+            <a href="#product-page" className="hover:text-amber-500 transition-colors">المواصفات الفنية</a>
+            <a href="#quality" className="hover:text-amber-500 transition-colors">أجهزة الاختبار</a>
+            <a href="#clients" className="hover:text-amber-500 transition-colors">الشركاء</a>
+            <a href="#contact" className="hover:text-amber-500 transition-colors">تواصل معنا</a>
           </nav>
 
           {/* Actions */}
           <div className="flex items-center gap-3">
             <button
               onClick={() => setCartOpen(true)}
-              className="relative border border-white/10 bg-white/5 hover:border-orange-500/40 hover:bg-white/10 transition-all px-4 py-2 rounded-xl font-medium text-sm text-white flex items-center gap-2"
+              className="relative border border-slate-800 bg-slate-900/50 hover:bg-slate-900 hover:border-slate-700 transition-all px-4 py-2 rounded-xl font-semibold text-xs sm:text-sm text-slate-200 flex items-center gap-2 cursor-pointer shadow-sm"
             >
-              <span>سلة العروض</span>
+              <ClipboardList className="w-4 h-4 text-amber-500" />
+              <span>طلب التسعير</span>
               {cartItems.length > 0 && (
-                <span className="bg-orange-500 text-white text-xs font-bold w-5 h-5 rounded-full flex items-center justify-center animate-pulse">
+                <span className="bg-amber-500 text-slate-950 text-[10px] font-black w-5 h-5 rounded-lg flex items-center justify-center transition-all">
                   {cartItems.length}
                 </span>
               )}
             </button>
             <a
               href="#contact"
-              className="bg-orange-500 hover:bg-orange-400 text-white transition-all px-5 py-2 rounded-xl font-bold shadow-lg shadow-orange-500/20 text-sm hidden sm:block"
+              className="bg-amber-500 hover:bg-amber-600 text-slate-950 transition-all px-5 py-2.5 rounded-xl font-bold text-xs sm:text-sm shadow-md shadow-amber-500/10 hover:shadow-amber-500/20 text-center hidden md:flex items-center gap-2 cursor-pointer"
             >
-              اطلب عرض سعر
+              <PhoneCall className="w-4 h-4" />
+              <span>اطلب مقايسة</span>
             </a>
 
             {/* Mobile Menu Button */}
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="lg:hidden p-2 text-gray-400 hover:text-white"
+              className="lg:hidden p-2 text-slate-400 hover:text-slate-200 cursor-pointer"
               aria-label="Toggle Menu"
             >
               {mobileMenuOpen ? (
-                <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                </svg>
+                <X className="w-6 h-6" />
               ) : (
-                <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16m-7 6h7" />
-                </svg>
+                <Menu className="w-6 h-6" />
               )}
             </button>
           </div>
@@ -72,114 +72,118 @@ export default function Header() {
 
         {/* Mobile Menu Panel */}
         {mobileMenuOpen && (
-          <div className="lg:hidden border-t border-white/10 bg-[#070B14]/95 backdrop-blur-2xl py-4 px-6 absolute w-full left-0 transition-all duration-300">
-            <nav className="flex flex-col gap-4 text-gray-300">
+          <div className="lg:hidden border-t border-slate-900 bg-slate-950/95 backdrop-blur-2xl py-4 px-6 absolute w-full left-0 transition-all duration-300">
+            <nav className="flex flex-col gap-3 text-slate-400 font-semibold">
               <a
                 href="#services"
                 onClick={() => setMobileMenuOpen(false)}
-                className="hover:text-orange-300 transition-colors py-2 border-b border-white/5"
+                className="hover:text-amber-500 transition-colors py-2.5 border-b border-slate-900"
               >
-                الخدمات
+                الخدمات والحلول
               </a>
               <a
                 href="#products"
                 onClick={() => setMobileMenuOpen(false)}
-                className="hover:text-orange-300 transition-colors py-2 border-b border-white/5"
+                className="hover:text-amber-500 transition-colors py-2.5 border-b border-slate-900"
               >
                 المنتجات
               </a>
               <a
                 href="#product-page"
                 onClick={() => setMobileMenuOpen(false)}
-                className="hover:text-orange-300 transition-colors py-2 border-b border-white/5"
+                className="hover:text-amber-500 transition-colors py-2.5 border-b border-slate-900"
               >
-                صفحة المنتج
+                المواصفات الفنية
               </a>
               <a
                 href="#quality"
                 onClick={() => setMobileMenuOpen(false)}
-                className="hover:text-orange-300 transition-colors py-2 border-b border-white/5"
+                className="hover:text-amber-500 transition-colors py-2.5 border-b border-slate-900"
               >
-                الاختبارات
+                أجهزة الاختبار
               </a>
               <a
                 href="#clients"
                 onClick={() => setMobileMenuOpen(false)}
-                className="hover:text-orange-300 transition-colors py-2 border-b border-white/5"
+                className="hover:text-amber-500 transition-colors py-2.5 border-b border-slate-900"
               >
-                العملاء
+                الشركاء
               </a>
               <a
                 href="#contact"
                 onClick={() => setMobileMenuOpen(false)}
-                className="hover:text-orange-300 transition-colors py-2"
+                className="hover:text-amber-500 transition-colors py-2.5"
               >
                 تواصل معنا
               </a>
               <a
                 href="#contact"
                 onClick={() => setMobileMenuOpen(false)}
-                className="bg-orange-500 text-center text-white py-3 rounded-xl font-bold block mt-2"
+                className="bg-amber-500 text-center text-slate-950 py-3 rounded-xl font-bold block mt-2 shadow-md shadow-amber-500/10"
               >
-                اطلب عرض سعر
+                اطلب مقايسة للموقع
               </a>
             </nav>
           </div>
         )}
       </header>
 
-      {/* Cart Drawer Overlay */}
+      {/* Cart Drawer */}
       {isCartOpen && (
         <div className="fixed inset-0 z-[100] flex justify-end">
-          {/* Backdrop */}
           <div
-            className="absolute inset-0 bg-black/60 backdrop-blur-sm transition-opacity"
+            className="absolute inset-0 bg-slate-950/70 backdrop-blur-sm transition-opacity"
             onClick={() => setCartOpen(false)}
           ></div>
 
-          {/* Drawer content */}
-          <div className="relative w-full max-w-md bg-[#0D1321] border-l border-white/10 text-white h-full flex flex-col shadow-2xl p-6 z-10 animate-slide-left">
-            <div className="flex items-center justify-between border-b border-white/10 pb-4 mb-6">
-              <div className="flex items-center gap-2">
-                <span className="text-2xl">🛒</span>
-                <h2 className="text-xl font-bold">سلة عروض الأسعار</h2>
+          <div className="relative w-full max-w-md bg-slate-950 border-l border-slate-800/80 text-slate-100 h-full flex flex-col shadow-2xl p-6 z-10">
+            {/* Header */}
+            <div className="flex items-center justify-between border-b border-slate-800 pb-4 mb-6">
+              <div className="flex items-center gap-2.5 text-amber-500">
+                <ClipboardList className="w-5 h-5" />
+                <h2 className="text-lg font-bold text-slate-100">قائمة عروض الأسعار</h2>
               </div>
               <button
                 onClick={() => setCartOpen(false)}
-                className="p-2 text-gray-400 hover:text-white rounded-lg hover:bg-white/5"
+                className="p-2 text-slate-400 hover:text-slate-200 rounded-lg hover:bg-slate-900 transition-all cursor-pointer"
               >
-                <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                </svg>
+                <X className="w-5 h-5" />
               </button>
             </div>
 
             {/* List */}
             <div className="flex-1 overflow-y-auto space-y-4 pr-1">
               {cartItems.length === 0 ? (
-                <div className="text-center py-20 text-gray-500">
-                  <div className="text-5xl mb-4">🗅</div>
-                  <p>السلة فارغة حالياً</p>
-                  <p className="text-sm mt-1">تصفح المنتجات وأضف ما تحتاجه لطلب عرض سعر</p>
+                <div className="text-center py-24 text-slate-500 flex flex-col items-center">
+                  <ClipboardList className="w-12 h-12 text-slate-600 mb-4" strokeWidth={1.5} />
+                  <p className="font-bold text-slate-400">قائمة الطلبات فارغة</p>
+                  <p className="text-xs text-slate-500 mt-1 max-w-xs">
+                    تصفح المنتجات في الكتالوج وأضف العناصر التي تحتاج لتسعيرها للمبيعات.
+                  </p>
                 </div>
               ) : (
                 cartItems.map((item) => (
                   <div
                     key={item.id}
-                    className="flex items-center justify-between p-4 bg-white/5 border border-white/10 rounded-2xl"
+                    className="flex items-center justify-between p-4 bg-slate-900/40 border border-slate-800/60 rounded-2xl"
                   >
                     <div className="flex items-center gap-3">
-                      <div className="text-3xl">{item.icon}</div>
+                      <div className="w-10 h-10 rounded-xl bg-slate-900 border border-slate-800 flex items-center justify-center text-amber-500">
+                        <Network className="w-5 h-5" />
+                      </div>
                       <div>
-                        <h4 className="font-bold text-sm">{item.name}</h4>
-                        <span className="text-xs text-orange-300">{item.category}</span>
+                        <h4 className="font-bold text-sm text-slate-200">{item.name}</h4>
+                        <span className="text-[10px] bg-slate-800 text-slate-400 px-2 py-0.5 rounded font-bold mt-1 inline-block">
+                          {item.category}
+                        </span>
                       </div>
                     </div>
                     <button
                       onClick={() => removeFromCart(item.id)}
-                      className="p-1.5 text-gray-400 hover:text-red-400 rounded-lg hover:bg-red-500/10 transition-colors"
+                      className="p-2 text-slate-500 hover:text-red-400 rounded-lg hover:bg-red-500/10 transition-all cursor-pointer"
+                      title="حذف من السلة"
                     >
-                      حذف
+                      <Trash2 className="w-4 h-4" />
                     </button>
                   </div>
                 ))
@@ -188,24 +192,25 @@ export default function Header() {
 
             {/* Footer */}
             {cartItems.length > 0 && (
-              <div className="border-t border-white/10 pt-6 mt-6 space-y-4">
-                <div className="flex justify-between text-sm text-gray-400">
-                  <span>إجمالي المنتجات المطلوبة</span>
-                  <span className="text-white font-bold">{cartItems.length} منتجات</span>
+              <div className="border-t border-slate-900 pt-6 mt-6 space-y-4">
+                <div className="flex justify-between text-sm text-slate-400 font-semibold">
+                  <span>إجمالي البنود المطلوبة</span>
+                  <span className="text-amber-500 font-bold">{cartItems.length} بنود</span>
                 </div>
                 <div className="grid grid-cols-2 gap-3">
                   <a
                     href="#contact"
                     onClick={() => setCartOpen(false)}
-                    className="bg-orange-500 hover:bg-orange-400 transition-all text-center py-3.5 rounded-xl font-bold shadow-lg shadow-orange-500/20 text-sm text-white"
+                    className="bg-amber-500 hover:bg-amber-600 text-slate-950 text-center py-3.5 rounded-xl font-bold text-sm shadow-md shadow-amber-500/10 flex items-center justify-center gap-2 cursor-pointer"
                   >
-                    إرسال الطلب للمبيعات
+                    <span>طلب عرض سعر</span>
+                    <ArrowLeft className="w-4 h-4" />
                   </a>
                   <button
                     onClick={clearCart}
-                    className="border border-white/10 bg-white/5 hover:bg-white/10 hover:border-red-500/20 text-center py-3.5 rounded-xl font-medium text-sm text-gray-300 hover:text-red-400 transition-colors"
+                    className="border border-slate-800 bg-slate-900/40 hover:bg-slate-900 hover:border-red-500/20 text-slate-400 hover:text-red-400 text-center py-3.5 rounded-xl font-bold text-sm transition-all cursor-pointer"
                   >
-                    تفريغ السلة
+                    تفريغ القائمة
                   </button>
                 </div>
               </div>

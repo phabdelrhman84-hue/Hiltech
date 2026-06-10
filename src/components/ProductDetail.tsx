@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import { useCart, ProductItem } from "@/context/CartContext";
+import { Cable, Cpu, Ruler, FileText, Check, Plus, MessageSquare, ShieldCheck, Download } from "lucide-react";
 
 export default function ProductDetail() {
   const { addToCart, cartItems } = useCart();
@@ -11,60 +12,62 @@ export default function ProductDetail() {
     id: "prod-detail-1",
     name: "كابل فايبر أوبتك 12 كور Outdoor Single Mode",
     category: "كابلات الفايبر",
-    icon: "🧵",
+    icon: "⚙️",
   };
 
   const isAdded = cartItems.some((item) => item.id === product.id);
 
   const tabs = [
-    { id: "description", label: "الوصف" },
-    { id: "specs", label: "المواصفات الفنية" },
-    { id: "uses", label: "الاستخدامات" },
-    { id: "downloads", label: "التحميلات" },
+    { id: "description", label: "الوصف العام" },
+    { id: "specs", label: "المواصفات الفنية الهندسة" },
+    { id: "uses", label: "تطبيقات الاستخدام" },
+    { id: "downloads", label: "تحميل الداتا شيت" },
   ];
 
   const renderTabContent = () => {
     switch (activeTab) {
       case "specs":
         return (
-          <div className="text-gray-300 text-sm sm:text-base space-y-2">
-            <div className="grid grid-cols-2 border-b border-white/5 py-2">
-              <span className="text-gray-500">النوع الرئيسي</span>
-              <span className="font-semibold">Single Mode (G.652.D)</span>
+          <div className="text-slate-300 text-sm sm:text-base space-y-3 font-medium">
+            <div className="grid grid-cols-2 border-b border-slate-900 py-2">
+              <span className="text-slate-500">نوع الألياف البصرية (Fiber Type)</span>
+              <span className="font-semibold text-slate-200">Single Mode ITU-T G.652.D</span>
             </div>
-            <div className="grid grid-cols-2 border-b border-white/5 py-2">
-              <span className="text-gray-500">حماية الكابل</span>
-              <span className="font-semibold">غلاف بولي إيثيلين مزدوج (PE) مقاوم للأشعة فوق البنفسجية</span>
+            <div className="grid grid-cols-2 border-b border-slate-900 py-2">
+              <span className="text-slate-500">حماية الكابل (Structure)</span>
+              <span className="font-semibold text-slate-200">غلاف بولي إيثيلين مزدوج (Double PE) + شريط فولاذي مموج</span>
             </div>
-            <div className="grid grid-cols-2 border-b border-white/5 py-2">
-              <span className="text-gray-500">مقاومة الشد</span>
-              <span className="font-semibold">1500 N</span>
+            <div className="grid grid-cols-2 border-b border-slate-900 py-2">
+              <span className="text-slate-500">قوة الشد القصوى (Tensile Strength)</span>
+              <span className="font-semibold text-slate-200">1500 N (طويلة المدى) / 3000 N (قصيرة المدى)</span>
             </div>
             <div className="grid grid-cols-2 py-2">
-              <span className="text-gray-500">درجة حرارة التشغيل</span>
-              <span className="font-semibold">-40°C to +70°C</span>
+              <span className="text-slate-500">درجة حرارة التشغيل القياسية</span>
+              <span className="font-semibold text-slate-200">-40°C to +70°C</span>
             </div>
           </div>
         );
       case "uses":
         return (
-          <p className="text-gray-400 leading-relaxed text-sm sm:text-base">
-            يستخدم هذا المنتج في مشاريع الربط بين المباني السكنية والتجارية، وتمديدات الفايبر الخارجية الأرضية والهوائية، وتأسيس البنية التحتية لشبكات الاتصالات للشركات والمصانع الكبرى، بالإضافة إلى ربط كاميرات المراقبة بعيدة المدى.
+          <p className="text-slate-400 leading-relaxed text-sm sm:text-base font-medium">
+            يستخدم هذا المنتج بشكل أساسي في مشاريع الربط العمودي (Backbone) بين غرف التحكم بالشبكات، وتمديدات الفايبر الخارجية الأرضية عبر مجاري الكابلات، والتركيب الهوائي بين الأعمدة، بالإضافة إلى ربط كاميرات المراقبة الرقمية (IP CCTV) على مسافات بعيدة في المصانع وحقول البترول والمدن الذكية.
           </p>
         );
       case "downloads":
         return (
           <div className="space-y-3">
-            <div className="flex items-center justify-between p-3 bg-white/5 rounded-xl border border-white/5">
-              <span className="text-sm font-semibold">كتيب المواصفات الفنية الكاملة (Data Sheet)</span>
-              <button className="text-xs bg-orange-500 hover:bg-orange-400 text-white font-bold px-3 py-1.5 rounded-lg transition-colors">
-                تحميل PDF
+            <div className="flex items-center justify-between p-3.5 bg-slate-900/40 rounded-xl border border-slate-800/80">
+              <span className="text-sm font-semibold text-slate-300">Technical Datasheet (HIL-FO-12C-SM).pdf</span>
+              <button className="text-xs bg-amber-500 hover:bg-amber-600 text-slate-950 font-bold px-3 py-2 rounded-lg transition-colors flex items-center gap-1 cursor-pointer">
+                <Download className="w-3.5 h-3.5" />
+                <span>تحميل PDF</span>
               </button>
             </div>
-            <div className="flex items-center justify-between p-3 bg-white/5 rounded-xl border border-white/5">
-              <span className="text-sm font-semibold">شهادة مطابقة المعايير والمواصفات الدولية</span>
-              <button className="text-xs bg-orange-500 hover:bg-orange-400 text-white font-bold px-3 py-1.5 rounded-lg transition-colors">
-                تحميل PDF
+            <div className="flex items-center justify-between p-3.5 bg-slate-900/40 rounded-xl border border-slate-800/80">
+              <span className="text-sm font-semibold text-slate-300">Certificate of Compliance & Standards.pdf</span>
+              <button className="text-xs bg-amber-500 hover:bg-amber-600 text-slate-950 font-bold px-3 py-2 rounded-lg transition-colors flex items-center gap-1 cursor-pointer">
+                <Download className="w-3.5 h-3.5" />
+                <span>تحميل PDF</span>
               </button>
             </div>
           </div>
@@ -72,81 +75,84 @@ export default function ProductDetail() {
       case "description":
       default:
         return (
-          <p className="text-gray-400 leading-relaxed text-sm sm:text-base">
-            كابل فايبر خارجي (Outdoor) عالي الجودة يحتوي على 12 كور بنظام Single Mode، مصمم خصيصاً لمقاومة الظروف الجوية القاسية وحماية الألياف البصرية الداخلية. مثالي لمشاريع الربط بين المباني، البنية التحتية للشركات، ومشاريع كاميرات المراقبة بعيدة المدى. يمكن توريده بأطوال ومواصفات مختلفة حسب جداول الكميات (BOQ) ومتطلبات المشاريع.
+          <p className="text-slate-400 leading-relaxed text-sm sm:text-base font-medium">
+            كابل فايبر أوبتك خارجي (Outdoor Single Mode) مصنع طبقاً للمواصفات العالمية، يتميز بغلاف فولاذي مموج للحماية ضد القوارض والضغوط الميكانيكية، ويحتوي على 12 شعيرة بصرية داخلية ملونة لسهولة الفرز واللحام. مثالي لمشاريع ربط الفروع ومزودي الخدمات والشبكات القومية. متوفر للتوريد بكميات ضخمة وبأطوال مخصصة للمشاريع الكبرى.
           </p>
         );
     }
   };
 
   return (
-    <section className="py-28 px-6 bg-[#070B14]" id="product-page">
+    <section className="py-28 px-6 bg-slate-950" id="product-page">
       <div className="max-w-7xl mx-auto">
         <div className="mb-14 text-center">
-          <div className="inline-flex items-center border border-orange-500/20 bg-orange-500/10 text-orange-300 rounded-full px-4 py-2 text-sm mb-5 font-bold">
-            Product Page Design
+          <div className="inline-flex items-center border border-amber-500/20 bg-amber-500/5 text-amber-500 rounded-full px-4.5 py-1.5 text-xs font-bold mb-5 uppercase tracking-wider">
+            Product Specifications Page
           </div>
-          <h2 className="text-4xl sm:text-5xl font-black mb-5 text-white">نموذج صفحة المنتج</h2>
-          <p className="text-gray-400 text-base sm:text-lg max-w-2xl mx-auto">
-            تصميم صفحة منتج مناسبة للبيع B2B: مواصفات فنية واضحة، ملفات تحميل داتا شيت، تفاصيل الاستخدام، ونموذج طلب عرض سعر بدل الشراء المباشر.
+          <h2 className="text-4xl sm:text-5xl font-black mb-5 text-slate-100">تفاصيل المواصفات الفنية للمنتج</h2>
+          <p className="text-slate-400 text-base sm:text-lg max-w-2xl mx-auto font-medium">
+            مواصفات فنية دقيقة لمهندسي الشبكات والمشتريات بالمؤسسات لتسهيل اعتماد البنود في جداول المقايسات.
           </p>
         </div>
 
         <div className="grid lg:grid-cols-2 gap-10 items-start">
-          {/* Product Gallery */}
+          {/* Gallery View */}
           <div>
-            <div className="bg-gradient-to-br from-orange-500/20 to-blue-400/10 border border-white/10 rounded-[36px] h-[350px] sm:h-[520px] flex items-center justify-center text-9xl mb-5 select-none">
-              🧵
+            <div className="bg-slate-900/20 border border-slate-900 rounded-[32px] h-[350px] sm:h-[500px] flex items-center justify-center relative select-none">
+              <div className="w-24 h-24 rounded-3xl bg-slate-950 border border-slate-850 flex items-center justify-center text-amber-500 shadow-xl shadow-amber-500/5">
+                <Cable className="w-12 h-12" />
+              </div>
             </div>
-            <div className="grid grid-cols-4 gap-4">
-              <div className="h-20 sm:h-24 rounded-2xl bg-white/[0.04] border border-white/10 flex items-center justify-center text-3xl cursor-pointer hover:border-orange-500/40 transition-colors select-none">🧵</div>
-              <div className="h-20 sm:h-24 rounded-2xl bg-white/[0.04] border border-white/10 flex items-center justify-center text-3xl cursor-pointer hover:border-orange-500/40 transition-colors select-none">🔧</div>
-              <div className="h-20 sm:h-24 rounded-2xl bg-white/[0.04] border border-white/10 flex items-center justify-center text-3xl cursor-pointer hover:border-orange-500/40 transition-colors select-none">📏</div>
-              <div className="h-20 sm:h-24 rounded-2xl bg-white/[0.04] border border-white/10 flex items-center justify-center text-3xl cursor-pointer hover:border-orange-500/40 transition-colors select-none">📄</div>
+            <div className="grid grid-cols-4 gap-4 mt-5">
+              <div className="h-20 rounded-2xl bg-slate-900/30 border border-slate-900 hover:border-amber-500/30 flex items-center justify-center text-slate-400 cursor-pointer select-none">
+                <Cable className="w-6 h-6 text-amber-500" />
+              </div>
+              <div className="h-20 rounded-2xl bg-slate-900/30 border border-slate-900 hover:border-amber-500/30 flex items-center justify-center text-slate-400 cursor-pointer select-none">
+                <Cpu className="w-6 h-6" />
+              </div>
+              <div className="h-20 rounded-2xl bg-slate-900/30 border border-slate-900 hover:border-amber-500/30 flex items-center justify-center text-slate-400 cursor-pointer select-none">
+                <Ruler className="w-6 h-6" />
+              </div>
+              <div className="h-20 rounded-2xl bg-slate-900/30 border border-slate-900 hover:border-amber-500/30 flex items-center justify-center text-slate-400 cursor-pointer select-none">
+                <FileText className="w-6 h-6" />
+              </div>
             </div>
           </div>
 
-          {/* Product Details info */}
-          <div className="glass rounded-[36px] p-6 sm:p-9">
-            <div className="flex flex-wrap gap-3 mb-5">
-              <span className="bg-orange-500/10 border border-orange-500/20 text-orange-300 rounded-full px-4 py-2 text-sm font-bold">
-                كابلات الفايبر
+          {/* Details */}
+          <div className="glass rounded-[32px] p-6 sm:p-9 bg-slate-950 border border-slate-900">
+            <div className="flex flex-wrap gap-2.5 mb-5">
+              <span className="bg-amber-500/10 border border-amber-500/20 text-amber-500 rounded-lg px-3 py-1 text-xs font-bold">
+                رمز المنتج: HIL-FO-12C-SM
               </span>
-              <span className="bg-green-500/10 border border-green-500/20 text-green-300 rounded-full px-4 py-2 text-sm font-bold">
-                متوفر توريد كميات
+              <span className="bg-green-500/10 border border-green-500/20 text-green-400 rounded-lg px-3 py-1 text-xs font-bold flex items-center gap-1">
+                <ShieldCheck className="w-3.5 h-3.5" />
+                <span>مطابق لمعايير ISO / IEC</span>
               </span>
             </div>
-            <h1 className="text-3xl sm:text-4xl font-black leading-tight mb-5 text-white">
+            <h1 className="text-3xl sm:text-4xl font-black leading-tight mb-5 text-slate-100">
               كابل فايبر أوبتك 12 كور Outdoor Single Mode
             </h1>
-            <p className="text-gray-400 text-base sm:text-lg leading-relaxed mb-8">
-              كابل فايبر خارجي مناسب لمشاريع البنية التحتية، الربط بين المباني، وشبكات الشركات التي تحتاج إلى استقرار عالي وسرعات نقل موثوقة لمسافات طويلة.
+            <p className="text-slate-400 text-base sm:text-lg leading-relaxed mb-8 font-medium">
+              كابل ألياف بصرية خارجي مدرع (Armored) مناسب للتركيب المباشر في التربة أو مجاري الكابلات، ومصمم لتوصيل البيانات بسرعات فائقة في أصعب البيئات الصناعية والإنشائية.
             </p>
 
             <div className="grid md:grid-cols-2 gap-4 mb-8">
-              <div className="bg-black/20 border border-white/10 rounded-2xl p-4">
-                <div className="text-gray-500 text-xs sm:text-sm mb-1 font-semibold">عدد الكور</div>
-                <div className="font-bold text-white">12 Core</div>
+              <div className="bg-slate-900/30 border border-slate-900 rounded-2xl p-4">
+                <div className="text-slate-500 text-xs mb-1 font-bold">عدد الشعيرات (Fibers)</div>
+                <div className="font-bold text-slate-200">12 Core</div>
               </div>
-              <div className="bg-black/20 border border-white/10 rounded-2xl p-4">
-                <div className="text-gray-500 text-xs sm:text-sm mb-1 font-semibold">نوع الكابل</div>
-                <div className="font-bold text-white">Single Mode</div>
+              <div className="bg-slate-900/30 border border-slate-900 rounded-2xl p-4">
+                <div className="text-slate-500 text-xs mb-1 font-bold">نمط الإرسال (Mode)</div>
+                <div className="font-bold text-slate-200">Single Mode (أحادي النمط)</div>
               </div>
-              <div className="bg-black/20 border border-white/10 rounded-2xl p-4">
-                <div className="text-gray-500 text-xs sm:text-sm mb-1 font-semibold">الاستخدام</div>
-                <div className="font-bold text-white">Outdoor</div>
+              <div className="bg-slate-900/30 border border-slate-900 rounded-2xl p-4">
+                <div className="text-slate-500 text-xs mb-1 font-bold">التدريع (Armoring)</div>
+                <div className="font-bold text-slate-200">شريط فولاذي مموج (CST)</div>
               </div>
-              <div className="bg-black/20 border border-white/10 rounded-2xl p-4">
-                <div className="text-gray-500 text-xs sm:text-sm mb-1 font-semibold">التطبيق</div>
-                <div className="font-bold text-white">FTTX / Backbone</div>
-              </div>
-              <div className="bg-black/20 border border-white/10 rounded-2xl p-4">
-                <div className="text-gray-500 text-xs sm:text-sm mb-1 font-semibold">الطول</div>
-                <div className="font-bold text-white">حسب الطلب</div>
-              </div>
-              <div className="bg-black/20 border border-white/10 rounded-2xl p-4">
-                <div className="text-gray-500 text-xs sm:text-sm mb-1 font-semibold">الدعم الفني والتركيب</div>
-                <div className="font-bold text-white">متاح عبر فريق هيلتك</div>
+              <div className="bg-slate-900/30 border border-slate-900 rounded-2xl p-4">
+                <div className="text-slate-500 text-xs mb-1 font-bold">نوع الغلاف (Sheath)</div>
+                <div className="font-bold text-slate-200">HDPE (بولي إيثيلين عالي الكثافة)</div>
               </div>
             </div>
 
@@ -154,42 +160,53 @@ export default function ProductDetail() {
               <button
                 onClick={() => addToCart(product)}
                 disabled={isAdded}
-                className={`px-8 py-4 rounded-2xl text-lg font-bold transition-all shadow-2xl cursor-pointer ${
+                className={`px-8 py-4 rounded-xl text-sm font-bold transition-all shadow-md flex items-center gap-2 cursor-pointer ${
                   isAdded
-                    ? "bg-green-600/20 border border-green-500/30 text-green-400 cursor-not-allowed"
-                    : "bg-orange-500 hover:bg-orange-400 text-white shadow-orange-500/20 hover:scale-[1.02]"
+                    ? "bg-green-600/10 border border-green-500/20 text-green-400 cursor-not-allowed"
+                    : "bg-amber-500 hover:bg-amber-600 text-slate-950 shadow-amber-500/5 hover:scale-[1.01]"
                 }`}
               >
-                {isAdded ? "✓ مضاف في سلة العروض" : "أضف لطلب عرض السعر"}
+                {isAdded ? (
+                  <>
+                    <Check className="w-5 h-5" />
+                    <span>تمت الإضافة للسلة</span>
+                  </>
+                ) : (
+                  <>
+                    <Plus className="w-5 h-5" />
+                    <span>أضف لطلب المقايسة</span>
+                  </>
+                )}
               </button>
               <a
                 href="https://wa.me/201000087808"
                 target="_blank"
                 rel="noreferrer"
-                className="border border-white/10 bg-[#25D366]/10 hover:border-[#25D366]/40 hover:bg-[#25D366]/20 text-white px-8 py-4 rounded-2xl text-lg font-bold transition-all text-center flex items-center justify-center gap-2"
+                className="border border-slate-800 bg-emerald-500/5 hover:bg-emerald-500/10 hover:border-emerald-500/30 text-emerald-400 px-8 py-4 rounded-xl text-sm font-bold transition-all text-center flex items-center justify-center gap-2 cursor-pointer"
               >
-                تواصل عبر واتساب
+                <MessageSquare className="w-4.5 h-4.5" />
+                <span>الاستفسار السريع عبر واتساب</span>
               </a>
             </div>
-            <div className="border-t border-white/10 pt-6 grid grid-cols-3 gap-4 text-xs sm:text-sm text-gray-400 font-semibold">
-              <div>توريد مباشر للمشاريع</div>
-              <div>إمكانية إرسال المقايسات</div>
-              <div>عرض سعر حسب الكمية</div>
+            <div className="border-t border-slate-900 pt-6 grid grid-cols-3 gap-4 text-xs text-slate-500 font-bold">
+              <div>مطابق لمواصفات الكود</div>
+              <div>سعة تصنيع وتوريد ضخمة</div>
+              <div>تسهيلات لشركات المقاولات</div>
             </div>
           </div>
         </div>
 
-        {/* Tabbed Spec Details */}
-        <div className="mt-10 glass rounded-[36px] p-6 sm:p-8">
-          <div className="flex flex-wrap gap-2 sm:gap-4 mb-8 border-b border-white/10 pb-4">
+        {/* Tabbed Specs Details */}
+        <div className="mt-10 glass rounded-[32px] p-6 sm:p-8 bg-slate-950 border border-slate-900">
+          <div className="flex flex-wrap gap-2 mb-8 border-b border-slate-900 pb-4">
             {tabs.map((tab) => (
               <button
                 key={tab.id}
                 onClick={() => setActiveTab(tab.id)}
-                className={`px-5 py-3 rounded-2xl border transition-all text-sm font-bold cursor-pointer ${
+                className={`px-5 py-3 rounded-xl border transition-all text-xs font-bold cursor-pointer ${
                   activeTab === tab.id
-                    ? "bg-orange-500 border-orange-500 text-white"
-                    : "bg-white/[0.04] border-white/10 text-gray-300 hover:border-orange-500/40 hover:text-white"
+                    ? "bg-amber-500 border-amber-500 text-slate-950"
+                    : "bg-slate-900/40 border-slate-800/80 text-slate-400 hover:border-amber-500/30 hover:text-slate-200"
                 }`}
               >
                 {tab.label}
